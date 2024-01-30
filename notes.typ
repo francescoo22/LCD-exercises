@@ -16,7 +16,7 @@ If $A$ is finite, $f : 2^A -> 2^A$ monotone
 
 *Hennessy-Milner Logics*
 
-$ phi, psi ::= T | F | phi and psi | phi or psi | inangle(a) phi | [a] phi $
+$ phi, psi ::= T | F | phi and psi | phi or psi | ang(a) phi | [a] phi $
 
 - $hml(" ") : "HML" -> 2^Proc$
 - $hml(phi) subset.eq Proc$
@@ -28,7 +28,7 @@ $ phi, psi ::= T | F | phi and psi | phi or psi | inangle(a) phi | [a] phi $
 - $hml(F) = emptyset$
 - $hml(phi and psi) = hml(phi) sect hml(psi)$
 - $hml(phi or psi) = hml(phi) union hml(psi)$
-- $hml(inangle(a)phi) = inangle(a) hml(phi) "   for " X subset.eq Proc inangle(a) X = {P | exists P ->^a P' and P' in X}$
+- $hml(ang(a)phi) = ang(a) hml(phi) "   for " X subset.eq Proc ang(a) X = {P | exists P ->^a P' and P' in X}$
 - $hml([a]phi) = [a] hml(phi) "   for " X subset.eq Proc [a] X = {P | forall P ->^a P' and P' in X}$
 
 *Image finiteness*
@@ -43,13 +43,13 @@ Let $P, Q$ image-finite $ P ~ Q <-> (forall phi in "HML" sat(P, phi) <-> sat(Q, 
 
 - $"Inv"(phi) = nu X . (phi and [Act] X)$
 
-- $"Pos"(phi) = mu Y . (phi or inangle(Act) Y)$
+- $"Pos"(phi) = mu Y . (phi or ang(Act) Y)$
 
-- $"Even"(phi) = mu X . (phi or ([Act] X and inangle(Act) T))$
+- $Even(phi) = mu X . (phi or ([Act] X and ang(Act) T))$
 
 *$mu$-calculus*
 
-$ phi, psi ::= T | F | phi and psi | phi or psi | inangle(a) phi | [a] phi | X | nu X . phi | mu X . phi $
+$ phi, psi ::= T | F | phi and psi | phi or psi | ang(a) phi | [a] phi | X | nu X . phi | mu X . phi $
 
 where:
 - $X : "Var"$
@@ -60,7 +60,7 @@ where:
 - $hmlr(F) = emptyset$
 - $hmlr(phi and psi) = hmlr(phi) sect hmlr(psi)$
 - $hmlr(phi or psi) = hmlr(phi) union hmlr(psi)$
-- $hmlr(inangle(a)phi) = inangle(a) hmlr(phi)$
+- $hmlr(ang(a)phi) = ang(a) hmlr(phi)$
 - $hmlr([a]phi) = [a] hmlr(phi)$
 - $hmlr(X) = eta(X)$
 - $hmlr(nu X . phi) = Fix(f_phi), " "S =^max hmlr(phi)_[x->S] = f_phi (S)$
