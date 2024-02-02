@@ -6,6 +6,9 @@
 #let Act = "Act"
 #let Even = "Even"
 #let compq = $"comp"_Q$
+#let CCS = "CCS"
+#let fi = "if"
+#let def = $=^"def"$
 
 #let hml(it) = $bracket.l.double it bracket.r.double$
 #let hmlr(it) = $bracket.l.double it bracket.r.double_eta$
