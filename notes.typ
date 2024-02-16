@@ -1,4 +1,5 @@
 #import "common.typ": *
+#import "rules.typ": *
 
 *Monotone function*
 
@@ -65,3 +66,28 @@ where:
 - $hmlr(X) = eta(X)$
 - $hmlr(nu X . phi) = Fix(f_phi), " "S =^max hmlr(phi)_[x->S] = f_phi (S)$
 - $hmlr(mu X . phi) = fix(f_phi)$
+
+*Weak Transitions*
+
+$P, Q$ processes $P =>^alpha Q$ when
+- $alpha != tau tab P ->^(tau*) P'->^alpha Q' ->^(tau*) Q$
+- $alpha = tau tab P ->^(tau*) Q$
+
+*Weak Bisimilarity*
+
+a relation $cal(R) subset.eq Proc times Proc$ is a weak bisimulation if when $P cal(R) Q$
+- if $P ->^alpha P'$ then $Q =>^alpha Q'$ and $P' cal(R) Q'$
+- if $Q ->^alpha Q'$ then $P =>^alpha P'$ and $P' cal(R) Q'$
+
+We say P,Q weak bisimilar if there is $cal(R)$ weak bisimulation s.t. $P cal(R) Q$, and we write $P approx Q$
+
+$ approx = union.big {cal(R) | cal(R) "weak bisimulation"} $
+
+*Rules*
+
+#grid(
+  columns: (auto, auto, auto),
+  column-gutter: 1fr,
+  row-gutter: 2em,
+  c1, c2, c3, c4, c5, c6, c7, c8
+)

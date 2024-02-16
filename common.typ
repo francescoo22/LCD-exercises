@@ -9,6 +9,11 @@
 #let CCS = "CCS"
 #let fi = "if"
 #let def = $=^"def"$
+#let ended = $->^nu$
+#let tab = h(2em)
+#let seq = "seq"
+#let wnu = $without {nu}$
+#let then = "then"
 
 #let hml(it) = $bracket.l.double it bracket.r.double$
 #let hmlr(it) = $bracket.l.double it bracket.r.double_eta$
