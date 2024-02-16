@@ -29,7 +29,7 @@ let $O = sum_(I in emptyset) P_i$
 ])
 
 #v(1em)
-alternativa
+alternativa (in questo caso però $O;Q$ è stuck)
 
 #align(center, box[ 
   #set text(10pt)
