@@ -7,25 +7,23 @@ Discuss an extension of CCS with an operator of sequential composition between p
 
 *Solution*
 
-The operator $P;Q$ is interpreted as "$P$ will continue to move until it is possible, when $P$ is no longer able to make a move ($P ~ O$), $Q$ will start to move"
+== $CCS_seq$
 
-== $CCS_comp$
-
-$ P, Q ::= K | alpha . P | sum_(i in I) P_i | (P | Q) | P[f] | P without L | P;Q $
+$ P, Q ::= K | alpha . P | sum_(i in I) alpha . P_i | (P | Q) | P[f] | P without L | P;Q $
 
 == Operational Semantics
 
-The following rules describe when a process has "finished" is work:
+// The following rules describe when a process has "finished" is work:
 
-$P$ has finished is work $equiv P ->^nu$
+// $P$ has finished is work $equiv P ended$
 
 *Rules:* 
 
-- for the moment $(P_1 + P_2);Q$ is not allowed, si puo fare anche solo con le guarded sum
-- think about a rule that defines when $P;Q ended$
-- idea per $0 approx e(0)$ è aggiungere alla weak bisim che $P ended P', P' ended, Q ended $
-- forse può aiutare dimostrare che $forall P . e(P) ended 0$
-- bisogna mettere la premessa che in CCScomp non ho canali $nu, nu', ...$ (si puo definire questa cosa per induzione strutturale)
+// - for the moment $(P_1 + P_2);Q$ is not allowed, si puo fare anche solo con le guarded sum
+// - think about a rule that defines when $P;Q ended$
+// - idea per $0 approx e(0)$ è aggiungere alla weak bisim che $P ended P', P' ended, Q ended $
+// - forse può aiutare dimostrare che $forall P . e(P) ended 0$
+// - bisogna mettere la premessa che in CCSseq non ho canali $nu, nu', ...$ (si puo definire questa cosa per induzione strutturale)
 
 #v(2em)
 
@@ -33,82 +31,90 @@ $P$ has finished is work $equiv P ->^nu$
   columns: (auto, auto, auto),
   column-gutter: 1fr,
   row-gutter: 2em,
-  r1, r2, r3, r4, r5, r7, // r6, r8
+  r1, r2, r3, r4, r5, r6, r7, r8
 )
 
 == Encoding
 
-Let $e : CCS_comp -> CCS$ encoding function from $CCS_comp$ to $CCS$ defined as follows:
+Let $e : CCS_seq times NN -> CCS$
+
+The encoding of a $CCS_seq$ process $P$ is $e(P, 0) without {nu_0}$
+
+Note: $forall i in NN . nu_i$ is a channel that does not appear in $P$
 
 #list(
   tight: false,
   spacing: 2em,
-  $e(0) = nu . 0$,
-  $e(alpha . P) = alpha . e(P)$,
-  $e(K) = K_e, space K_e def e(P) fi K def P$,
-  $e(P | Q) = (e(P)[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) without {nu'}$,
-  $e(sum_(i in I) P_i) = sum_(i in I) e(P_i)$,
-  $e(P[f]) = e(P) [f]$,
-  $e(P without L) = e(P) without L$,
-  $e(P; Q) = (e(P) | overline(nu) . e(Q)) wnu "forse togliere il canale nascosto"$
+  $e(0, i) = nu_i . 0$,
+  $e(alpha . P, i) = alpha . e(P, i)$,
+  $e(K, i) = K_e, space K_e def e(P, i) fi K def P$,
+  $e(P | Q, i) = (e(P, i+1) | e(Q, i+1) | overline(nu_(i+1)) . overline(nu_(i+1)) . nu_i . 0) without {nu_(i+1)}$,
+  $e(sum_(j in J, J != emptyset) alpha_j . P_j, i) = sum_(j in J, J != emptyset) alpha_j . e(P_j, i)$,
+  $e(P[f], i) = e(P, i) [f]$,
+  $e(P without L, i) = e(P, i) without L$,
+  $e(P; Q, i) = (e(P, i+1) | overline(nu_(i+1)) . e(Q, i)) without {nu_(i+1)}$
 )
-
-The final encoding of a process $P$ is $e(P) wnu$
 
 == Equivalence
 
-Since $CCS subset.eq CCS_seq tab forall P in CCS_seq . e(P) in CCS_seq$
+$ forall P in CCS_seq . forall i in NN . P approx e(P, i) wnu(i) $
 
-We want to prove that $ forall P in CCS_seq . P approx e(P) wnu $
+Proprietà di $e$ da dimostrare
 
-By structural induction on $P$
+$ forall P in CCS_seq . forall i in NN . forall "trace" e(P, i) = P_0 -> P_1 -> ... P_(n-1) ->^alpha P_n space . space alpha = nu_i <-> P_n ended $
 
-*case 0*
+// Since $CCS subset.eq CCS_seq tab forall P in CCS_seq . e(P) in CCS_seq$
 
-we need to prove that $0 approx nu . 0 wnu$
+// We want to prove that $ forall P in CCS_seq . P approx e(P) wnu $
 
-by definition, $0$ cannot make any transition and so it is vacuously true that $fi 0 ->^alpha P' "then" nu . 0 wnu =>^alpha Q' and P' approx Q'$
+// By structural induction on $P$
 
-It is also easy to see that $nu . 0 wnu$ cannot make any transition and so also the dual is valid.
+// *case 0*
 
-$
-  => fi cal(R) = emptyset then P cal(R) Q \ 
-  => 0 approx nu . 0 wnu
-$
+// we need to prove that $0 approx nu . 0 wnu$
 
-*case $alpha . P$*
+// by definition, $0$ cannot make any transition and so it is vacuously true that $fi 0 ->^alpha P' "then" nu . 0 wnu =>^alpha Q' and P' approx Q'$
 
-we need to prove that $alpha . P approx alpha . e(P) wnu$
+// It is also easy to see that $nu . 0 wnu$ cannot make any transition and so also the dual is valid.
 
-Since by construction, channels $nu, nu', ...$ can only be created by function $e$, we can say that $alpha != nu$
+// $
+//   => fi cal(R) = emptyset then P cal(R) Q \ 
+//   => 0 approx nu . 0 wnu
+// $
 
-The only transition that can be made by $alpha . P$ is by applying (Act) $ alpha . P ->^alpha P $
-Since $alpha != nu$ the only transition that can be made by $alpha . e(P) wnu$ is by applying (Res) $ alpha . e(P) wnu ->^alpha e(P) wnu $
+// *case $alpha . P$*
 
-And by structural induction $P approx e(P) wnu$
+// we need to prove that $alpha . P approx alpha . e(P) wnu$
 
-$
-  => cal(R) = (alpha . P, alpha . e(P) wnu) union approx \
-  => alpha . P approx alpha . e(P) wnu
-$
+// Since by construction, channels $nu, nu', ...$ can only be created by function $e$, we can say that $alpha != nu$
 
-*case K*
+// The only transition that can be made by $alpha . P$ is by applying (Act) $ alpha . P ->^alpha P $
+// Since $alpha != nu$ the only transition that can be made by $alpha . e(P) wnu$ is by applying (Res) $ alpha . e(P) wnu ->^alpha e(P) wnu $
 
-we need to prove that $K approx K_e$ where $K def P "and" K_e def e(P)$
+// And by structural induction $P approx e(P) wnu$
 
-it is easy to see that $K approx P$ and $K_e approx e(P)$
+// $
+//   => cal(R) = (alpha . P, alpha . e(P) wnu) union approx \
+//   => alpha . P approx alpha . e(P) wnu
+// $
 
-by structural induction $P approx e(P)$
+// *case K*
 
-and so by transitivity $K approx P, P approx e(P), e(P) approx K_e => K approx K_e$
+// we need to prove that $K approx K_e$ where $K def P "and" K_e def e(P)$
 
-*case P|Q*
+// it is easy to see that $K approx P$ and $K_e approx e(P)$
 
-we need to prove that $P|Q approx ((e(P)[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) without {nu'}) without {nu}$
+// by structural induction $P approx e(P)$
 
-which is equivalent to prove that $P|Q approx (e(P)[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) without {nu', nu}$
+// and so by transitivity $K approx P, P approx e(P), e(P) approx K_e => K approx K_e$
+
+// *case P|Q*
+
+// we need to prove that $P|Q approx ((e(P)[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) without {nu'}) without {nu}$
+
+// which is equivalent to prove that $P|Q approx (e(P)[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) without {nu', nu}$
 
 
-By structural induction:
-- $P approx e(P) wnu$
-- $Q approx e(Q) wnu$
+// By structural induction:
+// - $P approx e(P) wnu$
+// - $Q approx e(Q) wnu$

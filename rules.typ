@@ -10,18 +10,18 @@
 
 #let r1 = prooftree(
     axiom(""),
-    rule(label: "End-Zero", $0 ->^nu$),
+    rule(label: "End-Zero", $0 ended$),
   )
 
 #let r2 = prooftree(
     axiom($P ended$),
-    axiom($Q->^nu$),
-    rule(n:2, label: "End-Par", $P|Q ->^nu$),
+    axiom($Q ended$),
+    rule(n:2, label: "End-Par", $P|Q ended$),
   )
 
 #let r3 = prooftree(
     axiom($P ended$),
-    rule(label: "End-Hide", $P without A ->^nu$),
+    rule(label: "End-Hide", $P without A ended$),
   )
 
 #let r4 = prooftree(
@@ -31,26 +31,32 @@
 
 #let r5 = prooftree(
     axiom($P ended$),
-    axiom($K def P$),
-    rule(n:2, label: "End-Const", $K ended$),
+    rule(label: (left: "End-Const", right: $space fi K def P$), $K ended$),
   )
 
 #let r6 = prooftree(
     axiom($P ended$),
     axiom($Q ended$),
-    rule(n:2, label: "End-Plus", $P + Q ended$),
+    rule(n:2, label: "End-Seq", $P ; Q ended$),
   )
 
 #let r7 = prooftree(
-    axiom($P ended$),
-    axiom($Q ->^alpha Q'$),
-    rule(n:2, label: "Comp", $P;Q ->^alpha Q'$),
+    axiom($P ->^alpha P'$),
+    rule(label: "Seq-L", $P;Q ->^alpha P';Q$),
   )
 
 #let r8 = prooftree(
-    axiom($forall i in I . P_i ended$),
-    rule(label: "End-Sum", $sum_(i in I) P_i ended$),
+    axiom($P ended$),
+    axiom($Q ->^alpha Q'$),
+    rule(n:2, label: "Seq-R", $P;Q ->^alpha Q'$),
   )
+
+
+
+// #let r9 = prooftree(
+//     axiom($forall i in I . P_i ended$),
+//     rule(label: "End-Sum", $sum_(i in I) P_i ended$),
+//   )
 
 // ****************** CLASSIC RULES ******************
 
