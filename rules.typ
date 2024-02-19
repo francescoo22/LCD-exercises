@@ -6,7 +6,7 @@
     rule(n:2, label: "", $$),
   )
 
-// ****************** MY RULES ******************
+// ****************** CCS_seq RULES ******************
 
 #let r1 = prooftree(
     axiom(""),
@@ -51,13 +51,6 @@
     rule(n:2, label: "Seq-R", $P;Q ->^alpha Q'$),
   )
 
-
-
-// #let r9 = prooftree(
-//     axiom($forall i in I . P_i ended$),
-//     rule(label: "End-Sum", $sum_(i in I) P_i ended$),
-//   )
-
 // ****************** CLASSIC RULES ******************
 
 #let c1 = prooftree(
@@ -88,7 +81,7 @@
 
 #let c6 = prooftree(
     axiom($P ->^alpha P'$),
-    rule(label: (left: "Res", right: $space alpha, overline(alpha) in.not L$), $P without L ->^alpha P' without L$),
+    rule(label: (left: "Hide", right: $space alpha, overline(alpha) in.not L$), $P without L ->^alpha P' without L$),
   )
 
 #let c7 = prooftree(
@@ -99,4 +92,35 @@
 #let c8 = prooftree(
     axiom($P ->^alpha P'$),
     rule(label: (left: "Const", right: $space K def P$), $K ->^alpha P'$),
+  )
+
+// ****************** RULES FOR THE PROOF ******************
+
+#let p1 = prooftree(
+    axiom($$),
+    rule(label: "Act", $alpha . e(P) atrans e(P)$),
+    rule(label: (left: "Hide", right: $alpha != nu "by construction"$), $e(alpha . P) wnu = alpha . e(P) wnu atrans e(P) wnu$),
+  )
+
+#let p2 = prooftree(
+    axiom($e(P) atrans P''$),
+    rule(label: (left: "Const", right: $K_e def e(P)$), $K_e atrans P''$),
+    rule(label: (left: "Hide", right: $alpha != nu "by construction"$), $e(K) wnu = K_e wnu atrans P'' wnu$),
+  )
+
+#let p3 = prooftree(
+    axiom($e(P) wnu atrans P''$),
+    rule(label: (left: "Hide", right: $alpha, overline(alpha) in.not L$), $e(P wL) wnu = e(P) wL wnu tilde^"easy to prove" e(P) wnu wL atrans P'' wL$),
+  )
+
+#let p4 = prooftree(
+    axiom($e(P) atrans P''$),
+    rule(label: (left: "Red"), $e(P)[f]->^(f(alpha)) P''[f]$),
+    rule(label: (left: "Hide", right: $alpha != nu "by construction"$), $e(P[f]) wnu = e(P)[f] wnu ->^(f(alpha)) P''[f] wnu$),
+  )
+
+#let r = prooftree(
+    axiom($$),
+    axiom($$),
+    rule(n:2, label: "", $$),
   )
