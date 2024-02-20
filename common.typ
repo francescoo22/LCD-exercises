@@ -20,6 +20,7 @@
 #let atrans = $->^alpha$
 #let awtrans = $=>^alpha$
 #let ttrans = $->^tau$
+#let ntrans = $->^nu$
 
 #let hml(it) = $bracket.l.double it bracket.r.double$
 #let hmlr(it) = $bracket.l.double it bracket.r.double_eta$
