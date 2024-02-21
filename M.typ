@@ -35,26 +35,7 @@ $ P, Q ::= K | alpha . P | sum_(i in I) alpha . P_i | (P | Q) | P[f] | P without
   r1, r2, r3, r4, r5, r6, r7, r8
 )
 
-== Encoding
-
-Let $e : CCS_seq -> CCS$
-
-The encoding of a $CCS_seq$ process $P$ is $e(P) without {nu}$
-
-Note: $nu, nu'$ are channels that does not appear in $P$
-
-#list(
-  tight: false,
-  spacing: 2em,
-  $e(0) = nu . 0$,
-  $e(alpha . P) = alpha . e(P)$,
-  $e(K) = K_e, space K_e def e(P) fi K def P$,
-  $e(P | Q) = (e(P)[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) without {nu'}$,
-  $e(sum_(j in J, J != emptyset) alpha_j . P_j) = sum_(j in J, J != emptyset) alpha_j . e(P_j)$,
-  $e(P[f]) = e(P) [f]$,
-  $e(P without L) = e(P) without L$,
-  $e(P; Q) = (e(P)[nu'/nu] | overline(nu') . e(Q)) without {nu'}$
-)
+#include "encoding.typ"
 
 == Lemmas
 
@@ -68,7 +49,9 @@ Note: $nu, nu'$ are channels that does not appear in $P$
 
 $ forall P in CCS_seq . P approx e(P) wnu $
 
-let $ cr = {(P, Q) | P, Q in CCS_seq , Q approx e(P) wnu} union approx $
+*LA SOLUZIONE PUO' ESSERE TOGLIERE LA WEAK BISIM DALLA RELAZIONE*
+
+let $ cr = {(P, Q wnu) | P, Q in CCS_seq , Q approx e(P)} union approx $
 
 we need to prove that $cr$ is a weak bisimulation i.e.
 
@@ -77,6 +60,8 @@ we need to prove that $cr$ is a weak bisimulation i.e.
 - $forall P in CCS_seq . fi e(P) wnu atrans P'' wnu then P awtrans P' and P' cr (P'' wnu)$
 
 The proof is done by induction on the height of the derivation tree, so we can rewrite it as follows:
+
+*NON E' COMPLETAMENTE ESATTO METTERE e(P), CI ANDREBBE Q $approx$ e(P)*
 
 - $forall P in CCS_seq . forall h in NN . fi P atrans P' "with tree of height" h then e(P) wnu awtrans P'' wnu and P' cr (P'' wnu)$
 
@@ -139,7 +124,7 @@ $
   P' [f] approx^("case and properties of" approx) P'' wnu [f] tilde^"shown before" P'''
 $
 
-2. case $p'' wnu approx e(P') wnu$ :
+2. case $P'' wnu approx e(P') wnu$ :
 
 I have to show that $P''' approx (e(P'[f]) wnu)$
 
@@ -150,3 +135,21 @@ $ P''' tilde^"shown before" P'' wnu [f] approx^("case and properties of" approx)
 Sum case is trivial because if $ p5 $ also $ p6 $ 
 
 and $P_j cr (e(P_j) wnu)$.
+
+*Inductive case Par-1/Par-2*
+
+If $ c3 $ 
+
+then by induction: $e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
+
+$=> e(P) atrans P''$
+
+and so $ p7 $
+
+#v(1em)
+
+we need to show that $(P'|Q) cr (P''[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup wnu$
+
+which is equivalent to show that $(P''[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup approx e(P'|Q)$
+
+$ P' cr P'' =>^(cr "definition") P'' approx e(P') \ =>^"bisim properties" (P''[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup approx (e(P')[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup = e(P'|Q) $

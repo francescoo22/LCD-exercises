@@ -129,6 +129,13 @@
     rule(label: (left: "Hide", right: $alpha_j != nu$), $e(sum_(j in J != emptyset) alpha_j . P_j) wnu = sum_(j in J != emptyset) alpha_j . e(P_j) wnu ->^(alpha_j) e(P_j) wnu$),
 )
 
+#let p7 = prooftree(
+    axiom($e(P) atrans P''$),
+    rule(label: (left: "Red", right: $alpha != nu => [nu'/nu] (alpha) = alpha$), $e(P)[nu'/nu] atrans P''[nu'/nu]$),
+    rule("..."),
+    rule(label: "", $e(P | Q) wnu = (e(P)[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup wnu atrans (P''[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup wnu$)
+  )
+
 #let r = prooftree(
     axiom($$),
     axiom($$),
