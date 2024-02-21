@@ -144,3 +144,9 @@ $
 I have to show that $P''' approx (e(P'[f]) wnu)$
 
 $ P''' tilde^"shown before" P'' wnu [f] approx^("case and properties of" approx) e(P') wnu [f] tilde^"lemma 2" e(P')[f] wnu = e(P'[f]) wnu $
+
+*Inductive case Sum*
+
+Sum case is trivial because if $ p5 $ also $ p6 $ 
+
+and $P_j cr (e(P_j) wnu)$.
