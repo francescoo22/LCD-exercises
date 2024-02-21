@@ -114,9 +114,8 @@
   )
 
 #let p4 = prooftree(
-    axiom($e(P) atrans P''$),
-    rule(label: (left: "Red"), $e(P)[f]->^(f(alpha)) P''[f]$),
-    rule(label: (left: "Hide", right: $alpha != nu "by construction"$), $e(P[f]) wnu = e(P)[f] wnu ->^(f(alpha)) P''[f] wnu$),
+    axiom($e(P) wnu atrans P'' wnu$),
+    rule(label: "Red", $e(P) wnu [f] ->^(f(alpha)) P'' wnu [f]$),
   )
 
 #let r = prooftree(

@@ -62,20 +62,25 @@ Note: $nu, nu'$ are channels that does not appear in $P$
 
 1. $forall P in CCS_seq . forall L_1,L_2 in Act . P without L_1 without L_2 tilde P without L_2 without L_1$
 
-== Equivalence -> TODO se aggiungo cose a $cr$ vanno dimostrate
+2. $forall P in CCS_seq . P wnu [f] tilde P [f] wnu$ se f non fa cose con $nu$
+
+== Equivalence
 
 $ forall P in CCS_seq . P approx e(P) wnu $
 
-// let $cr = {(P, e(P) wnu) | P, in CCS_seq} union approx$
-let $cr = {(P, Q) | P, Q in CCS_seq , Q approx e(P) wnu} union approx$
+let $ cr = {(P, Q) | P, Q in CCS_seq , Q approx e(P) wnu} union approx $
 
 we need to prove that $cr$ is a weak bisimulation i.e.
-- $forall P in CCS_seq . fi P atrans P' then e(P) wnu awtrans P'' and P' cr P''$
-- $forall P in CCS_seq . fi e(P) atrans P' then P wnu awtrans P'' and P' cr P''$
+
+- $forall P in CCS_seq . fi P atrans P' then e(P) wnu awtrans P'' wnu and P' cr (P'' wnu)$
+
+- $forall P in CCS_seq . fi e(P) wnu atrans P'' wnu then P awtrans P' and P' cr (P'' wnu)$
 
 The proof is done by induction on the height of the derivation tree, so we can rewrite it as follows:
-- $forall P in CCS_seq . forall h in NN . fi P atrans P' "with a derivation tree of height" h then e(P) wnu awtrans P'' and P' cr P''$
-- $forall P in CCS_seq . forall h in NN . fi e(P) atrans P' "with a derivation tree of height" h then P wnu awtrans P'' and P' cr P''$
+
+- $forall P in CCS_seq . forall h in NN . fi P atrans P' "with tree of height" h then e(P) wnu awtrans P'' wnu and P' cr (P'' wnu)$
+
+- $forall P in CCS_seq . forall h in NN . fi e(P) wnu atrans P'' wnu "with tree of height" h then P awtrans P' and P' cr (P'' wnu)$
 
 === First point
 *base case h=1*
@@ -84,7 +89,7 @@ The only way a process can make a transition with derivation tree of height 1 is
 
 *inductive case Const*
 
-if $ c8 $ then by induction: $e(P) wnu atrans P''' = P'' wnu "and" P' cr (P'' wnu)$ 
+if $ c8 $ then by induction: $e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$ 
 
 $=> e(P) atrans P''$ so #v(1em) $ p2 $ and $P' cr (P'' wnu)$
 
@@ -103,8 +108,9 @@ now we need to prove that $(P' wL) cr (P''')$
 
 since $P' cr (P'' wnu)$ there are 2 cases:
 
-1. $P' approx (P'' wnu) =>^("properties of " approx) (P' wL) approx (P'' wnu wL) =>^(("transitivity and" (P'' wnu wL) tilde P''')) P' wL approx P'''$ 
-#v(1em)
+1. case $P' approx (P'' wnu)$ : 
+$ =>^("properties of " approx) (P' wL) approx (P'' wnu wL) =>^(("transitivity and" (P'' wnu wL) tilde P''')) P' wL approx P''' $ 
+
 2. case $P'' wnu approx e(P') wnu$ : 
 I have to show that $P''' approx (e(P' wL) wnu)$ so that $P''' cr (P' wL)$
 $ 
@@ -113,21 +119,28 @@ $
   =>^("by transitivity") P''' approx (e(P' wL) wnu)
 $
 
-// $ 
-// e(P) wL wnu tilde e(P) wnu wL "and" e(P) wnu wL atrans P'' wL \
-// => e(P) wL wnu atrans P''' "and" P''' tilde P'' wL \
-// P' cr P'' => (P' wL) cr (P'' wL) "*forse da giustificare bene, alla peggio si puo mettere ~~ invece che R*" \
-// (P' wL) cr (P'' wL) "and" P''' tilde (P'' wL) => P''' cr (P' wL)
-// $
-
 *inductive case Red*
 
-if $ c7 $ then by induction: $e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$ 
+if $ c7 $ then by induction: $e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
 
-$=> e(P) atrans P''$ so #v(1em) $ p4 $
-#v(1em) $ P' cr (P'' wnu) => P'[f] cr (P'' [f] wnu) "*anche questa da giustificare*" $
+and so $ p4 $
 
+$ 
+  e(P) wnu [f] tilde^"lemma 2" e(P) [f] wnu \
+  =>^"bisim" e(P) [f] wnu ->^(f(alpha)) P''' "and" (P'' wnu [f]) tilde P'''
+$
 
+To prove: $(P'[f]) cr P'''$
 
-- *devo mettere tutti i processi (P, Q) s.t Q ~ e(P)*
-- *dovrò dimostrare che $P ended <-> e(P) atrans P' and P' ended$*
+Since $P' cr (P'' wnu)$ there are 2 cases:
+
+1. case $P' approx (P'' wnu)$ : 
+$
+  P' [f] approx^("case and properties of" approx) P'' wnu [f] tilde^"shown before" P'''
+$
+
+2. case $p'' wnu approx e(P') wnu$ :
+
+I have to show that $P''' approx (e(P'[f]) wnu)$
+
+$ P''' tilde^"shown before" P'' wnu [f] approx^("case and properties of" approx) e(P') wnu [f] tilde^"lemma 2" e(P')[f] wnu = e(P'[f]) wnu $
