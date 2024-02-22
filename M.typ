@@ -45,6 +45,10 @@ $ P, Q ::= K | alpha . P | sum_(i in I) alpha . P_i | (P | Q) | P[f] | P without
 
 2. $forall P in CCS_seq . P wnu [f] tilde P [f] wnu$ se f non fa cose con $nu$
 
+3. $forall P in CCS_seq . P ended => P approx 0$
+
+4. $forall P in CCS_seq . e(P) approx e(P) wnup$
+
 == Equivalence
 
 $ forall P in CCS_seq . P approx e(P) wnu $
@@ -74,13 +78,17 @@ The only way a process can make a transition with derivation tree of height 1 is
 
 *inductive case Const*
 
-if $ c8 $ then by induction: $e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$ 
+if $ c8 $ 
+
+$=>^"by induction" e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$ 
 
 $=> e(P) atrans P''$ so #v(1em) $ p2 $ and $P' cr (P'' wnu)$
 
 *inductive case Hide*
 
-if $ c6 $ then by induction: $e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
+if $ c6 $ 
+
+$=>^"by induction" e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
 
 and so $ p3 $ #v(1em)
 
@@ -106,7 +114,9 @@ $
 
 *inductive case Red*
 
-if $ c7 $ then by induction: $e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
+if $ c7 $ 
+
+$=>^"by induction" e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
 
 and so $ p4 $
 
@@ -140,7 +150,7 @@ and $P_j cr (e(P_j) wnu)$.
 
 If $ c3 $ 
 
-then by induction: $e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
+$=>^"by induction" e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
 
 $=> e(P) atrans P''$
 
@@ -160,17 +170,37 @@ Par-2 and Par-3 are similar
 
 If $ r7 $
 
-then by induction: $e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
+$=>^"by induction" e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
 
 $=> e(P) atrans P''$
 
-ans so $ p8 $
+and so $ p8 $
 
 #v(1em)
 
-we need to show that $(P';Q) cr (P''[v'/v] | overline(v') . e(Q)) wnup wnu$
+we need to show that $(P';Q) cr (P''[nu'/nu] | overline(v') . e(Q)) wnup wnu$
 
-which is equivalent to show that $(P''[v'/v] | overline(v') . e(Q)) wnup approx e(P';Q)$
+which is equivalent to show that $(P''[nu'/nu] | overline(v') . e(Q)) wnup approx e(P';Q)$
 
-$ P' cr P'' wnu =>^(cr "definition") P'' approx e(P') \ =>^"bisim properties" (P''[v'/v] | overline(v') . e(Q)) wnup approx (e(P')[v'/v] | overline(v') . e(Q)) wnup = e(P';Q) $
+$ P' cr P'' wnu =>^(cr "definition") P'' approx e(P') \ =>^"bisim properties" (P''[nu'/nu] | overline(v') . e(Q)) wnup approx (e(P')[nu'/nu] | overline(v') . e(Q)) wnup = e(P';Q) $
 
+*Inductive case Seq-R*
+
+If $ r8 $
+
+$P ended =>^"lemma 0" e(P) ->^(tau*) P_"temp" ntrans P' and P' ended$
+
+$Q atrans Q'=>^"by induction" e(Q) wnu atrans Q'' wnu "and" Q' cr (Q'' wnu) => e(Q) atrans Q''$
+
+and so $ p9 $
+
+#v(2em)
+$ p10 $
+#v(2em)
+$ p11 $
+#v(2em)
+Now I have to prove that $Q' cr (P' [nu'/nu] | Q'') wnup wnu$
+
+Which is equivalent to prove that $(P' [nu'/nu] | Q'') wnup approx e(Q')$
+
+$ P' ended =>^"End-Red" P'[nu'/nu] ended =>^"lemma 3" P'[nu'/nu] approx 0 \ => (P' [nu'/nu] | Q'') wnup approx (0 | Q'') wnup approx^(Q'' approx e(Q')) (0 | e(Q')) wnup approx^"lemma 4" 0 | e(Q') approx e(Q') $

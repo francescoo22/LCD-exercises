@@ -26,7 +26,7 @@
 
 #let r4 = prooftree(
     axiom($P ended$),
-    rule(label: "End-Sub", $P[f] ended$),
+    rule(label: "End-Red", $P[f] ended$),
   )
 
 #let r5 = prooftree(
@@ -138,9 +138,30 @@
 
 #let p8 = prooftree(
     axiom($e(P) atrans P''$),
-    rule(label: "Red", $e(P)[v'/v] ->^([v'/v](alpha) = alpha) P''[v'/v]$),
+    rule(label: "Red", $e(P)[nu'/nu] ->^([nu'/nu](alpha) = alpha) P''[nu'/nu]$),
     rule("..."),
-    rule($e(P;Q) wnu = (e(P)[v'/v] | overline(v') . e(Q)) wnup wnu atrans (P''[v'/v] | overline(v') . e(Q)) wnup wnu$),
+    rule($e(P;Q) wnu = (e(P)[nu'/nu] | overline(v') . e(Q)) wnup wnu atrans (P''[nu'/nu] | overline(v') . e(Q)) wnup wnu$),
+  )
+
+#let p9 = prooftree(
+    axiom($e(P) ->^(tau*) P_"temp"$),
+    rule(label: "Red", $e(P)[nu'/nu] ->^([nu'/nu](tau*) = tau*) P_"temp" [nu'/nu]$),
+    rule("..."),
+    rule($(e(P) [nu'/nu] | overline(nu') . e(Q)) wnup wnu ->^(tau*) (P_"temp" [nu'/nu] | overline(nu') . e(Q)) wnup wnu$),
+  )
+
+#let p10 = prooftree(
+    axiom($P_"temp" ntrans P'$),
+    rule(label: "Red", $P_"temp" [nu'/nu] ->^([nu'/nu](nu) = nu') P' [nu'/nu]$),
+    axiom($overline(nu') . e(Q) ->^(overline(nu')) e(Q)$),
+    rule(n:2, "..."),
+    rule($(P_"temp" [nu'/nu] | overline(nu') . e(Q)) wnup wnu ->^(tau) (P' [nu'/nu] | e(Q)) wnup wnu$),
+  )
+
+#let p11 = prooftree(
+    axiom($e(Q) atrans Q''$),
+    rule("..."),
+    rule($(P' [nu'/nu] | e(Q)) wnup wnu atrans (P' [nu'/nu] | Q'') wnup wnu$),
   )
 
 #let r = prooftree(
