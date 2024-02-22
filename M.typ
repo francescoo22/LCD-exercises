@@ -39,7 +39,7 @@ $ P, Q ::= K | alpha . P | sum_(i in I) alpha . P_i | (P | Q) | P[f] | P without
 
 == Lemmas
 
-0. $forall P in CCS_seq . P ended <=> e(P) ntrans P' and P' ended$ *si potrebbe formalizzare con HML*
+0. $forall P in CCS_seq . P ended <=> e(P) ->^(tau*) P_"temp" ntrans P' and P' ended$ *si potrebbe formalizzare con HML*
 
 1. $forall P in CCS_seq . forall L_1,L_2 in Act . P without L_1 without L_2 tilde P without L_2 without L_1$
 
@@ -136,7 +136,7 @@ Sum case is trivial because if $ p5 $ also $ p6 $
 
 and $P_j cr (e(P_j) wnu)$.
 
-*Inductive case Par-1/Par-2*
+*Inductive case Par-1/Par-2/Par-3*
 
 If $ c3 $ 
 
@@ -152,4 +152,25 @@ we need to show that $(P'|Q) cr (P''[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . ov
 
 which is equivalent to show that $(P''[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup approx e(P'|Q)$
 
-$ P' cr P'' =>^(cr "definition") P'' approx e(P') \ =>^"bisim properties" (P''[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup approx (e(P')[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup = e(P'|Q) $
+$ P' cr P'' wnu =>^(cr "definition") P'' approx e(P') \ =>^"bisim properties" (P''[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup approx (e(P')[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup = e(P'|Q) $
+
+Par-2 and Par-3 are similar
+
+*Inductive case Seq-L*
+
+If $ r7 $
+
+then by induction: $e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
+
+$=> e(P) atrans P''$
+
+ans so $ p8 $
+
+#v(1em)
+
+we need to show that $(P';Q) cr (P''[v'/v] | overline(v') . e(Q)) wnup wnu$
+
+which is equivalent to show that $(P''[v'/v] | overline(v') . e(Q)) wnup approx e(P';Q)$
+
+$ P' cr P'' wnu =>^(cr "definition") P'' approx e(P') \ =>^"bisim properties" (P''[v'/v] | overline(v') . e(Q)) wnup approx (e(P')[v'/v] | overline(v') . e(Q)) wnup = e(P';Q) $
+

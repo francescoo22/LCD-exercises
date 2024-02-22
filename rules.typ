@@ -136,6 +136,13 @@
     rule(label: "", $e(P | Q) wnu = (e(P)[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup wnu atrans (P''[nu'/nu] | e(Q)[nu'/nu] | overline(nu') . overline(nu') . nu . 0) wnup wnu$)
   )
 
+#let p8 = prooftree(
+    axiom($e(P) atrans P''$),
+    rule(label: "Red", $e(P)[v'/v] ->^([v'/v](alpha) = alpha) P''[v'/v]$),
+    rule("..."),
+    rule($e(P;Q) wnu = (e(P)[v'/v] | overline(v') . e(Q)) wnup wnu atrans (P''[v'/v] | overline(v') . e(Q)) wnup wnu$),
+  )
+
 #let r = prooftree(
     axiom($$),
     axiom($$),
