@@ -37,17 +37,7 @@ $ P, Q ::= K | alpha . P | sum_(i in I) alpha . P_i | (P | Q) | P[f] | P without
 
 #include "encoding.typ"
 
-== Lemmas
-
-0. $forall P in CCS_seq . P ended <=> e(P) ->^(tau*) P_"temp" ntrans P' and P' ended$ *si potrebbe formalizzare con HML*
-
-1. $forall P in CCS_seq . forall L_1,L_2 in Act . P without L_1 without L_2 tilde P without L_2 without L_1$
-
-2. $forall P in CCS_seq . P wnu [f] tilde P [f] wnu$ se f non fa cose con $nu$
-
-3. $forall P in CCS_seq . P ended => P approx 0$
-
-4. $forall P in CCS_seq . e(P) approx e(P) wnup$
+#include "lemmas.typ"
 
 == Equivalence
 
