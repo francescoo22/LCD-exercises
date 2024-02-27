@@ -47,7 +47,7 @@ By induction on $n$:
 
 *Base case $n=1$*
 
-$ S_1 = {P | forall "complete computation" P = P_0 -> P_1 -> P_2 -> "... " exists i < n "s.t." sat(P_i, phi)} = {P | sat(P, phi)} \ subset.eq {P | sat(P, phi)} union hmlr([Act] emptyset and ang(Act)T) = hmlr(phi or ([Act] emptyset and ang(Act)T)) = f_phi (emptyset) $
+$ S_1 = {P | forall "complete computation" P = P_0 -> P_1 -> P_2 -> "... " exists i < 1 "s.t." sat(P_i, phi)} = {P | sat(P, phi)} \ subset.eq {P | sat(P, phi)} union hmlr([Act] emptyset and ang(Act)T) = hmlr(phi or ([Act] emptyset and ang(Act)T)) = f_phi (emptyset) $
 
 *Inductive case $n => n+1$*
 
