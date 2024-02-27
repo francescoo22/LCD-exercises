@@ -5,7 +5,7 @@
 
 0. $forall P in CCS_seq . P ended => e(P) ->^(tau*) P_"temp" ntrans P' and P' ended$
 
-1. $forall P in CCS_seq . forall L_1,L_2 in Act . P without L_1 without L_2 tilde P without L_2 without L_1$
+1. $fi forall P in CCS_seq . fi P atrans P' then e(P) wnu awtrans P'' wnu and P' cr (P'' wnu) \ then forall P in CCS_seq . fi P atrans P' "and" Q approx e(P) then Q wnu awtrans P'' wnu and P' cr (P'' wnu) "and dual"$
 
 2. $forall P in CCS_seq . P wnu [f] tilde P [f] wnu$ se f non fa cose con $nu$
 
@@ -50,3 +50,26 @@ ttrans (P' [nu'/nu] | e(Q)) wnup \
 ->^(tau*) (P' [nu'/nu] | Q_"temp") wnup \
 ntrans (P' [nu'/nu] | Q') wnup ended
 $
+
+=== Lemma 1.1
+
+$ 
+fi forall P,Q in CCS_seq . fi P atrans P' then e(P) wnu awtrans P'' wnu and P' cr (P'' wnu) \ 
+then forall P,Q in CCS_seq, P cr Q wnu . fi P atrans P' then Q wnu awtrans Q' wnu and P' cr (Q' wnu) 
+$
+
+*Proof:*
+
+$e(P) wnu awtrans P'' wnu =>^"only rule" e(P) awtrans P'' =>^(Q approx e(P)) Q awtrans Q' and P'' approx Q' =>^"transitivity" Q' approx P' => P' cr Q' wnu$
+
+=== Lemma 1.2
+
+$
+fi forall P,Q in CCS_seq . fi e(P) wnu atrans P'' wnu then P awtrans P' and P' cr (P'' wnu) \ 
+then forall P,Q in CCS_seq, P cr Q wnu . fi Q wnu atrans Q' wnu then P awtrans P' and P' cr (Q' wnu)
+$
+
+*Proof:*
+
+$Q wnu atrans Q' wnu =>^"only rule" Q atrans Q' =>^(Q approx e(P)) e(P) awtrans P'' and Q' approx P'' \
+=>^"hide" e(P) wnu awtrans P'' wnu =>^"hypothesis" P awtrans P' and P' cr P'' wnu =>^"relation" P'' approx e(P') =>^"transitivity" Q' approx e(P')$

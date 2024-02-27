@@ -53,8 +53,6 @@ we need to prove that $cr$ is a weak bisimulation i.e.
 
 The proof is done by induction on the height of the derivation tree, so we can rewrite it as follows:
 
-
-
 - $forall P in CCS_seq . forall h in NN . fi P atrans P' "with tree of height" h then e(P) wnu awtrans P'' wnu and P' cr (P'' wnu)$
 
 - $forall P in CCS_seq . forall h in NN . fi e(P) wnu atrans P'' wnu "with tree of height" h then P awtrans P' and P' cr (P'' wnu)$
