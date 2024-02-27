@@ -84,52 +84,16 @@ I have to prove that $P' wL cr P'' wL wnu$ i.e. $P'' wL approx e(P' wL)$
 
 $ P'' wL approx^(P'' approx e(P')) e(P') wL = e(P' wL) $
 
-// and so $ p3 $ #v(1em)
-
-// $ 
-//   e(P) wnu wL tilde^"lemma 1" e(P) wL wnu \
-//   =>^"bisim" e(P) wL wnu atrans P''' wnu "and" (P'' wnu wL) tilde P''' wnu
-// $
-
-// now we need to prove that $(P' wL) cr (P''' wnu) " i.e." P''' approx e(P' wL)$
-
-// since $P' cr (P'' wnu)$ we have that
-
-// $P'' approx e(P') => P'' wnu approx e(P') wnu$ : 
-// I have to show that $P''' approx e(P' wL)$ so that $P''' cr (P' wL)$
-// $ 
-//   (P'' wnu wL) approx^("2 and properties of " approx) (e(P') wnu wL) tilde^"lemma 1" e(P') wL wnu = e(P' wL) wnu \
-//   (P'' wnu wL) tilde P''' "as showed before" \
-//   =>^("by transitivity") P''' approx (e(P' wL) wnu)
-// $
-
 *inductive case Red*
 
 if $ c7 $ 
 
-$=>^"by induction" e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
+$=>^"by induction" e(P) wnu awtrans P'' wnu "and" P' cr (P'' wnu)\
+=>^"only rule" e(P) awtrans P''$
 
 and so $ p4 $
 
-$ 
-  e(P) wnu [f] tilde^"lemma 2" e(P) [f] wnu \
-  =>^"bisim" e(P) [f] wnu ->^(f(alpha)) P''' "and" (P'' wnu [f]) tilde P'''
-$
-
-To prove: $(P'[f]) cr P'''$
-
-Since $P' cr (P'' wnu)$ there are 2 cases:
-
-1. case $P' approx (P'' wnu)$ : 
-$
-  P' [f] approx^("case and properties of" approx) P'' wnu [f] tilde^"shown before" P'''
-$
-
-2. case $P'' wnu approx e(P') wnu$ :
-
-I have to show that $P''' approx (e(P'[f]) wnu)$
-
-$ P''' tilde^"shown before" P'' wnu [f] approx^("case and properties of" approx) e(P') wnu [f] tilde^"lemma 2" e(P')[f] wnu = e(P'[f]) wnu $
+and $P''[f] approx^(P'' approx e(P')) e(P') [f] = e(P' [f]) => P'[f] cr P''[f] wnu$
 
 *Inductive case Sum*
 

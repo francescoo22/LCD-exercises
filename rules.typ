@@ -110,12 +110,14 @@
 
 #let p3 = prooftree(
     axiom($e(P) awtrans P''$),
-    rule(label: (left: "Hide", right: $alpha, overline(alpha) in.not L$), $e(P wL) wnu = e(P) wL wnu awtrans P'' wL wnu$),
+    rule(label: (left: "Hide", right: $alpha, overline(alpha) in.not L$), $e(P wL) = e(P) wL awtrans P'' wL$),
+    rule(label: (left: "Hide", right: $alpha, overline(alpha) in.not {nu}$), $e(P wL) wnu awtrans P'' wL wnu$),
   )
 
 #let p4 = prooftree(
-    axiom($e(P) wnu atrans P'' wnu$),
-    rule(label: "Red", $e(P) wnu [f] ->^(f(alpha)) P'' wnu [f]$),
+    axiom($e(P) awtrans P''$),
+    rule(label: "Red", $e(P) [f] =>^(f(alpha)) P'' [f]$),
+    rule(label: "Hide", $e(P[f]) wnu = e(P) [f] wnu =>^(f(alpha)) P'' [f] wnu$),
   )
 
 #let p5 = prooftree(
