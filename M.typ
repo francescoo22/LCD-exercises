@@ -43,9 +43,7 @@ $ P, Q ::= K | alpha . P | sum_(i in I) alpha . P_i | (P | Q) | P[f] | P without
 
 $ forall P in CCS_seq . P approx e(P) wnu $
 
-*LA SOLUZIONE PUO' ESSERE TOGLIERE LA WEAK BISIM DALLA RELAZIONE*
-
-let $ cr = {(P, Q wnu) | P, Q in CCS_seq , Q approx e(P)} union approx $
+let $ cr = {(P, Q wnu) | P, Q in CCS_seq , Q approx e(P)} $
 
 we need to prove that $cr$ is a weak bisimulation i.e.
 
@@ -55,7 +53,7 @@ we need to prove that $cr$ is a weak bisimulation i.e.
 
 The proof is done by induction on the height of the derivation tree, so we can rewrite it as follows:
 
-*NON E' COMPLETAMENTE ESATTO METTERE e(P), CI ANDREBBE Q $approx$ e(P)*
+
 
 - $forall P in CCS_seq . forall h in NN . fi P atrans P' "with tree of height" h then e(P) wnu awtrans P'' wnu and P' cr (P'' wnu)$
 
@@ -64,7 +62,7 @@ The proof is done by induction on the height of the derivation tree, so we can r
 === First point
 *base case h=1*
 
-The only way a process can make a transition with derivation tree of height 1 is $ c1 $ and in this case also $ p1 $ and $P cr (e(P) wnu)$
+The only way a process can make a transition with derivation tree of height 1 is $ c1 $ and in this case also $ p1 $ and $P cr (e(P) wnu)$ because $e(P) approx e(P)$
 
 *inductive case Const*
 
@@ -78,29 +76,34 @@ $=> e(P) atrans P''$ so #v(1em) $ p2 $ and $P' cr (P'' wnu)$
 
 if $ c6 $ 
 
-$=>^"by induction" e(P) wnu atrans P'' wnu "and" P' cr (P'' wnu)$
+$=>^"by induction" e(P) wnu awtrans P'' wnu "and" P' cr (P'' wnu)\
+=>^"relation" P'' approx e(P')\
+=>^"only rule"  e(P) awtrans P''$
 
-and so $ p3 $ #v(1em)
+$ p3 $
 
-$ 
-  e(P) wnu wL tilde^"lemma 1" e(P) wL wnu \
-  =>^"bisim" e(P) wL wnu atrans P''' "and" (P'' wnu wL) tilde P'''
-$
+I have to prove that $P' wL cr P'' wL wnu$ i.e. $P'' wL approx e(P' wL)$
 
-now we need to prove that $(P' wL) cr (P''')$
+$ P'' wL approx^(P'' approx e(P')) e(P') wL = e(P' wL) $
 
-since $P' cr (P'' wnu)$ there are 2 cases:
+// and so $ p3 $ #v(1em)
 
-1. case $P' approx (P'' wnu)$ : 
-$ =>^("properties of " approx) (P' wL) approx (P'' wnu wL) =>^(("transitivity and" (P'' wnu wL) tilde P''')) P' wL approx P''' $ 
+// $ 
+//   e(P) wnu wL tilde^"lemma 1" e(P) wL wnu \
+//   =>^"bisim" e(P) wL wnu atrans P''' wnu "and" (P'' wnu wL) tilde P''' wnu
+// $
 
-2. case $P'' wnu approx e(P') wnu$ : 
-I have to show that $P''' approx (e(P' wL) wnu)$ so that $P''' cr (P' wL)$
-$ 
-  (P'' wnu wL) approx^("2 and properties of " approx) (e(P') wnu wL) tilde^"lemma 1" e(P') wL wnu = e(P' wL) wnu \
-  (P'' wnu wL) tilde P''' "as showed before" \
-  =>^("by transitivity") P''' approx (e(P' wL) wnu)
-$
+// now we need to prove that $(P' wL) cr (P''' wnu) " i.e." P''' approx e(P' wL)$
+
+// since $P' cr (P'' wnu)$ we have that
+
+// $P'' approx e(P') => P'' wnu approx e(P') wnu$ : 
+// I have to show that $P''' approx e(P' wL)$ so that $P''' cr (P' wL)$
+// $ 
+//   (P'' wnu wL) approx^("2 and properties of " approx) (e(P') wnu wL) tilde^"lemma 1" e(P') wL wnu = e(P' wL) wnu \
+//   (P'' wnu wL) tilde P''' "as showed before" \
+//   =>^("by transitivity") P''' approx (e(P' wL) wnu)
+// $
 
 *inductive case Red*
 

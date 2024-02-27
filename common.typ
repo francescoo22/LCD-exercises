@@ -16,7 +16,7 @@
 #let wnu = $without {nu}$
 #let wnup = $without {nu'}$
 #let wL = $without L$
-#let cr = $cal(R)$
+#let cr = $space cal(R) space$
 #let atrans = $->^alpha$
 #let awtrans = $=>^alpha$
 #let ttrans = $->^tau$

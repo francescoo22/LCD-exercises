@@ -109,8 +109,8 @@
   )
 
 #let p3 = prooftree(
-    axiom($e(P) wnu atrans P'' wnu$),
-    rule(label: (left: "Hide", right: $alpha, overline(alpha) in.not L$), $e(P) wnu wL atrans P'' wnu wL$),
+    axiom($e(P) awtrans P''$),
+    rule(label: (left: "Hide", right: $alpha, overline(alpha) in.not L$), $e(P wL) wnu = e(P) wL wnu awtrans P'' wL wnu$),
   )
 
 #let p4 = prooftree(
