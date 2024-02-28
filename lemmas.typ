@@ -7,8 +7,6 @@
 
 1. $fi forall P in CCS_seq . fi P atrans P' then e(P) wnu awtrans P'' wnu and P' cr (P'' wnu) \ then forall P in CCS_seq . fi P atrans P' "and" Q approx e(P) then Q wnu awtrans P'' wnu and P' cr (P'' wnu) "and dual"$
 
-2. $forall P in CCS_seq . P wnu [f] tilde P [f] wnu$ se f non fa cose con $nu$
-
 3. $forall P in CCS_seq . P ended => P approx 0$
 
 4. $forall P in CCS_seq . e(P) approx e(P) wnup$
