@@ -58,7 +58,7 @@ $
 
 *Proof:*
 
-$e(P) wnu awtrans P'' wnu =>^"only rule" e(P) awtrans P'' =>^(Q approx e(P)) Q awtrans Q' and P'' approx Q' =>^"transitivity" Q' approx P' => P' cr Q' wnu$
+$e(P) wnu awtrans P'' wnu =>^"only rule" e(P) awtrans P'' =>^(Q approx e(P)) Q awtrans Q' and P'' approx Q' =>^"transitivity" Q' approx e(P') => P' cr Q' wnu$
 
 === Lemma 1.2
 

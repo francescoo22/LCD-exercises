@@ -1,4 +1,4 @@
-#import "typst-prooftree/prooftree.typ": *
+#import "../typst-prooftree/prooftree.typ": *
 
 #let Fix = "Fix"
 #let fix = "fix"
